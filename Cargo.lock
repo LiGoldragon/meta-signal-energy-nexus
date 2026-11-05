@@ -251,7 +251,7 @@ checksum = "65cd87c9a6d60536580b316ad985726104730a5151c99845f2490428ef91240a"
 
 [[package]]
 name = "meta-signal-energy-nexus"
-version = "0.1.0"
+version = "0.2.0"
 dependencies = [
  "datom-codec 0.32.2",
  "ethos-zero 19.0.1",
@@ -418,8 +418,8 @@ dependencies = [
 
 [[package]]
 name = "signal-energy-nexus"
-version = "0.1.0"
-source = "git+https://github.com/LiGoldragon/signal-energy-nexus?rev=3c59145aa04b76cfbf139d49eb8cf9a4d8a02c04#3c59145aa04b76cfbf139d49eb8cf9a4d8a02c04"
+version = "0.2.0"
+source = "git+https://github.com/LiGoldragon/signal-energy-nexus?rev=226ff14f28913258869f13819807111ce35713f5#226ff14f28913258869f13819807111ce35713f5"
 dependencies = [
  "datom-codec 0.32.2",
  "protos",

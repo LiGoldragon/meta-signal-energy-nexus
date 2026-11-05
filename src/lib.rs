@@ -12,13 +12,14 @@ macro_rules! wire {
     };
 }
 pub use signal_energy_nexus::{
-    Caller, Minutes, Percent, Provider, Reminder, ResetId, Target, Threshold,
+    Caller, Minutes, Name, Percent, Provider, Reminder, ResetId, Target, Threshold,
 };
 wire! { pub struct ProviderTarget { pub provider: Provider, pub target: Target } }
+wire! { pub struct WindowTarget { pub provider: Provider, pub name: Name, pub target: Target } }
 wire! { pub enum Program { Codex, Flow } }
 wire! { pub struct Path(pub String); }
 wire! { pub struct ProgramPath { pub program: Program, pub path: Path } }
-wire! { pub enum Set { Polling(Minutes), Threshold(Threshold), Reminder(Reminder), RemoveReminder(Reminder), RedeemExpiring(Minutes), RedeemUsedAtLeast(Percent), Target(ProviderTarget), Program(ProgramPath), Credentials(Path) } }
+wire! { pub enum Set { Polling(Minutes), Threshold(Threshold), Reminder(Reminder), RemoveReminder(Reminder), RedeemExpiring(Minutes), RedeemUsedAtLeast(Percent), Target(ProviderTarget), WindowTarget(WindowTarget), Program(ProgramPath), Credentials(Path) } }
 wire! { pub enum Query { Configure(Set) } }
 wire! { pub struct Call { pub caller: Caller, pub input: Query } }
 wire! { pub enum Response { Configured(Set), ConfigureRefused(String) } }

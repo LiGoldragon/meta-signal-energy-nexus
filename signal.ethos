@@ -1,5 +1,5 @@
 Signal
-[ energy:[ Provider Threshold Reminder Minutes Percent ResetId Target ] ] ; imports Energy Nexus vocabulary
+[ energy:[ Provider Name Threshold Reminder Minutes Percent ResetId Target ] ] ; imports Energy Nexus vocabulary
 [ Call.{ Caller Input.[ Configure.Set ] } ]                 ; carries the peer caller and meta input
 [ Configured.Set                                            ; meta outputs
   ConfigureRefused.String ]
@@ -11,5 +11,6 @@ Signal
         RedeemExpiring.Minutes
         RedeemUsedAtLeast.Percent
         Target.{ Provider Target }                          ; one provider target
+        WindowTarget.{ Provider Name Target }               ; one window override
         Program.{ Program.[ Codex Flow ] Path.String }      ; one configured external program
         Credentials.Path ] ]
