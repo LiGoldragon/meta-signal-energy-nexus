@@ -1,12 +1,15 @@
 Signal
 [ energy:[ Provider Threshold Reminder Minutes Percent ResetId Target ] ]
-[ Configure.Set ]
+[ Call.{ Caller Input.[ Configure.Set ] } ]
 [ Configured.Set
   ConfigureRefused.String ]
-[ Set.[ Polling.Minutes
+[ Caller.{ ProcessId.Integer UserId.Integer }
+  Set.[ Polling.Minutes
         Threshold.Threshold
         Reminder.Reminder
         RemoveReminder.Reminder
         RedeemExpiring.Minutes
         RedeemUsedAtLeast.Percent
-        Target.{ Provider Target } ] ]
+        Target.{ Provider Target }
+        Program.{ Program.[ Codex Flow ] Path.String }
+        Credentials.Path ] ]
