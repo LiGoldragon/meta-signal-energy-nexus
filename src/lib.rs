@@ -29,6 +29,7 @@ impl signal::Contracted for Call {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use ethos_zero::{Actualizing, File, Potential, Validating};
     use signal::{ByteViewable, Restorable, Signal, Signalizable};
     #[test]
     fn validated_binary_round_trip() {
@@ -44,5 +45,11 @@ mod tests {
             .restore()
             .unwrap();
         assert_eq!(restored, value);
+    }
+
+    #[test]
+    fn ethos_declaration_checks() {
+        let file = Potential::<File>::from(ETHOS).actualize().unwrap();
+        file.validate().unwrap();
     }
 }

@@ -1,15 +1,15 @@
 Signal
-[ energy:[ Provider Threshold Reminder Minutes Percent ResetId Target ] ]
-[ Call.{ Caller Input.[ Configure.Set ] } ]
-[ Configured.Set
+[ energy:[ Provider Threshold Reminder Minutes Percent ResetId Target ] ] ; imports Energy Nexus vocabulary
+[ Call.{ Caller Input.[ Configure.Set ] } ]                 ; carries the peer caller and meta input
+[ Configured.Set                                            ; meta outputs
   ConfigureRefused.String ]
-[ Caller.{ ProcessId.Integer UserId.Integer }
-  Set.[ Polling.Minutes
+[ Caller.{ ProcessId.Integer UserId.Integer }               ; local envelope and configuration types
+  Set.[ Polling.Minutes                                     ; one configurable value per variant
         Threshold.Threshold
         Reminder.Reminder
         RemoveReminder.Reminder
         RedeemExpiring.Minutes
         RedeemUsedAtLeast.Percent
-        Target.{ Provider Target }
-        Program.{ Program.[ Codex Flow ] Path.String }
+        Target.{ Provider Target }                          ; one provider target
+        Program.{ Program.[ Codex Flow ] Path.String }      ; one configured external program
         Credentials.Path ] ]
