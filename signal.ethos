@@ -1,0 +1,11 @@
+Signal
+[ energy:[ Provider Threshold Reminder Minutes Percent ResetId ] ]
+[ Configure.Set ]
+[ Configured.Set
+  ConfigureRefused.String ]
+[ Set.[ Polling.Minutes
+        Threshold.Threshold
+        Reminder.Reminder
+        RemoveReminder.Reminder
+        RedeemExpiring.Minutes
+        RedeemUsedAtLeast.Percent ] ]
