@@ -1,5 +1,5 @@
 Signal
-[ energy:[ Provider Threshold Reminder Minutes Percent ResetId ] ]
+[ energy:[ Provider Threshold Reminder Minutes Percent ResetId Target ] ]
 [ Configure.Set ]
 [ Configured.Set
   ConfigureRefused.String ]
@@ -8,4 +8,5 @@ Signal
         Reminder.Reminder
         RemoveReminder.Reminder
         RedeemExpiring.Minutes
-        RedeemUsedAtLeast.Percent ] ]
+        RedeemUsedAtLeast.Percent
+        Target.{ Provider Target } ] ]

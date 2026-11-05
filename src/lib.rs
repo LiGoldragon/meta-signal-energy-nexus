@@ -11,8 +11,9 @@ macro_rules! wire {
         $item
     };
 }
-pub use signal_energy_nexus::{Minutes, Percent, Reminder, ResetId, Threshold};
-wire! { pub enum Set { Polling(Minutes), Threshold(Threshold), Reminder(Reminder), RemoveReminder(Reminder), RedeemExpiring(Minutes), RedeemUsedAtLeast(Percent) } }
+pub use signal_energy_nexus::{Minutes, Percent, Provider, Reminder, ResetId, Target, Threshold};
+wire! { pub struct Target_Data { pub provider: Provider, pub target: Target } }
+wire! { pub enum Set { Polling(Minutes), Threshold(Threshold), Reminder(Reminder), RemoveReminder(Reminder), RedeemExpiring(Minutes), RedeemUsedAtLeast(Percent), Target(Target_Data) } }
 wire! { pub enum Query { Configure(Set) } }
 wire! { pub enum Response { Configured(Set), ConfigureRefused(String) } }
 pub const ETHOS: &str = include_str!("../signal.ethos");
