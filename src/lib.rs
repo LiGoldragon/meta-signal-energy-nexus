@@ -53,4 +53,29 @@ mod tests {
         let file = Potential::<File>::from(ETHOS).actualize().unwrap();
         file.validate().unwrap();
     }
+
+    /// A reminder is configured for a Flow Address naming its Model.
+    #[test]
+    fn a_reminder_is_configured_for_an_address_naming_its_model() {
+        let value = Call {
+            caller: Caller {
+                process_id: 1,
+                user_id: 2,
+            },
+            input: Query::Configure(Set::Reminder(Reminder {
+                provider: Provider::Codex,
+                level: signal_energy_nexus::Level::Low,
+                recipient: signal_energy_nexus::Recipient(signal_energy_nexus::Address {
+                    aspect: signal_flow::Aspect::Mind,
+                    topic: "energyNexus".into(),
+                    model: signal_flow::Model::Sol,
+                }),
+            })),
+        };
+        let bytes = value.signalize().unwrap();
+        let restored = Signal::<Call>::from(bytes.bytes().to_vec())
+            .restore()
+            .unwrap();
+        assert_eq!(restored, value);
+    }
 }
