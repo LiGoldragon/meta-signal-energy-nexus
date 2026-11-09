@@ -2,7 +2,7 @@
 
 ## 0.4.0 — no polling interval; signal-energy-nexus 0.4.0
 
-`Set.Polling` is removed: the Energy Nexus reads a provider when a turn ends on it, when a window resets and when a reading is asked for while older than the last turn end, never on an interval, so no setting names one. `Configure.Polling.5` no longer reads, and a `Set` archive no longer carries the variant (every later variant's discriminant moves down by one; the contract digest changes with the authored `signal.ethos`). Pins signal-energy-nexus 0.4.0, which repins signal-flow 57.0.0 at `8e56457`.
+`Set.Polling` is removed: the Energy Nexus reads a provider when a turn ends on it, when a window resets and when a reading is asked for while older than the last turn end, never on an interval, so no setting names one. `Configure.Polling.5` no longer reads, and a `Set` archive no longer carries the variant (every later variant's discriminant moves down by one; the contract digest changes with the authored `signal.ethos`). Pins signal-energy-nexus 0.4.0, which repins signal-flow 57.0.0 at `3d0a4cd`.
 
 ## 0.3.0 — signal 10.3.0, datom-codec 0.33.0, protos 0.33.0, signal-energy-nexus 0.3.0
 

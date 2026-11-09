@@ -13,7 +13,7 @@ datom-codec = { git = "https://github.com/LiGoldragon/datom-codec", rev = "eabea
 protos = { git = "https://github.com/LiGoldragon/protos", rev = "3c7ade3", optional = true }
 rkyv = { version = "0.8", default-features = false, features = ["std", "bytecheck", "little_endian", "pointer_width_32", "unaligned"] }
 signal = { git = "https://github.com/LiGoldragon/signal", rev = "7afb68bcd19ce774f47d11c5e69f6e10054f78de", default-features = false }
-signal-energy-nexus = { git = "https://github.com/LiGoldragon/signal-energy-nexus", rev = "3b88d6080230106ce9ddd26034427b35a61f5d62", default-features = false }
+signal-energy-nexus = { git = "https://github.com/LiGoldragon/signal-energy-nexus", rev = "97741d2003e143662567ab8914be2dc4663a67dc", default-features = false }
 
 [dev-dependencies]
 ethos-zero = { git = "https://github.com/LiGoldragon/ethos-zero", rev = "5a5daca", default-features = false }
