@@ -4,8 +4,7 @@ Signal
 [ Configured.Set                                            ; meta outputs
   ConfigureRefused.String ]
 [ Caller.{ ProcessId.Integer UserId.Integer }               ; local envelope and configuration types
-  Set.[ Polling.Minutes                                     ; one configurable value per variant
-        Threshold.Threshold
+  Set.[ Threshold.Threshold                                 ; one configurable value per variant
         Reminder.Reminder
         RemoveReminder.Reminder
         RedeemExpiring.Minutes
