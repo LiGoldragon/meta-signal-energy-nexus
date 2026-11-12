@@ -1,5 +1,5 @@
 Library
-[ :signal_energy_nexus:library:[ Provider Name Threshold Reminder Minutes Percent Target Failure ] ] ; shared vocabulary
+[ :signal_energy_nexus:library:[ Provider Name Threshold Reminder Minutes Percent Target Failure SaveId SaveReceipt SaveAcknowledgement PersistenceReadback ] ] ; shared vocabulary
 [ Path.String                                             ; reference only, never credential contents
   Program.[ Codex Flow ]                                  ; configurable external executable capability
   ProgramPath.{ Program Path }                            ; one configured program reference
@@ -17,8 +17,10 @@ Library
   ConfigurationChange.[ PolicySet ProgramChange ] ; owner is selected by the data
   PolicyConfiguration.{ Vector<Threshold> Vector<Reminder> RedeemExpiring RedeemUsedAtLeast Vector<ProviderTarget> Vector<WindowTarget> } ; effective daemon policy
   ConfigurationRevision.Integer                           ; per-owner persisted sequence, not a content fingerprint
-  NexusConfiguration.{ ConfigurationRevision PolicyConfiguration } ; daemon snapshot
-  TranslatorConfiguration.{ ConfigurationRevision Programs } ; translator snapshot
+  NexusConfiguration.{ ConfigurationRevision PolicyConfiguration PersistenceReadback } ; daemon snapshot
+  TranslatorConfiguration.{ ConfigurationRevision Programs PersistenceReadback } ; translator snapshot
+  PolicyUpdate.{ SaveId PolicySet }                         ; correlation allocated before forwarding
+  ConfigurationUpdate.{ ConfigurationChange SaveAcknowledgement } ; attempted change and observed receipt only
   NexusPart.[ NexusConfiguration Failure.Failure ]                 ; availability is explicit
   TranslatorPart.[ TranslatorConfiguration Failure.Failure ]       ; no invented complete snapshot
   ConfigurationSnapshot.{ NexusPart TranslatorPart } ]     ; independent owner revisions

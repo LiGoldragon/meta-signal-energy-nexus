@@ -134,6 +134,7 @@ pub struct ConfigurationRevision(pub i64);
 pub struct NexusConfiguration {
     pub configuration_revision: ConfigurationRevision,
     pub policy_configuration: PolicyConfiguration,
+    pub persistence_readback: signal_energy_nexus::library::PersistenceReadback,
 }
 #[rustfmt::skip]
 #[derive(rkyv::Archive, rkyv::Serialize, rkyv::Deserialize, Clone, Debug, PartialEq, Eq, Hash)]
@@ -141,6 +142,21 @@ pub struct NexusConfiguration {
 pub struct TranslatorConfiguration {
     pub configuration_revision: ConfigurationRevision,
     pub programs: Programs,
+    pub persistence_readback: signal_energy_nexus::library::PersistenceReadback,
+}
+#[rustfmt::skip]
+#[derive(rkyv::Archive, rkyv::Serialize, rkyv::Deserialize, Clone, Debug, PartialEq, Eq, Hash)]
+#[cfg_attr(feature = "datom", derive(datom_codec::Datomizable, datom_codec::Composing))]
+pub struct PolicyUpdate {
+    pub save_id: signal_energy_nexus::library::SaveId,
+    pub policy_set: PolicySet,
+}
+#[rustfmt::skip]
+#[derive(rkyv::Archive, rkyv::Serialize, rkyv::Deserialize, Clone, Debug, PartialEq, Eq, Hash)]
+#[cfg_attr(feature = "datom", derive(datom_codec::Datomizable, datom_codec::Composing))]
+pub struct ConfigurationUpdate {
+    pub configuration_change: ConfigurationChange,
+    pub save_acknowledgement: signal_energy_nexus::library::SaveAcknowledgement,
 }
 #[rustfmt::skip]
 #[derive(rkyv::Archive, rkyv::Serialize, rkyv::Deserialize, Clone, Debug, PartialEq, Eq, Hash)]

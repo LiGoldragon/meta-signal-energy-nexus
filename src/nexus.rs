@@ -15,14 +15,14 @@ pub struct Call {
 #[derive(rkyv::Archive, rkyv::Serialize, rkyv::Deserialize, Clone, Debug, PartialEq, Eq, Hash)]
 #[cfg_attr(feature = "datom", derive(datom_codec::Datomizable, datom_codec::Composing))]
 pub enum Query {
-    Configure(crate::library::PolicySet),
+    Configure(crate::library::PolicyUpdate),
     Configuration,
 }
 #[rustfmt::skip]
 #[derive(rkyv::Archive, rkyv::Serialize, rkyv::Deserialize, Clone, Debug, PartialEq, Eq, Hash)]
 #[cfg_attr(feature = "datom", derive(datom_codec::Datomizable, datom_codec::Composing))]
 pub enum Response {
-    Configured(crate::library::PolicySet),
+    ConfigureResult(crate::library::ConfigurationUpdate),
     Configuration(crate::library::NexusConfiguration),
     Refused(signal_energy_nexus::library::Failure),
 }
