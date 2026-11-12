@@ -1,5 +1,13 @@
 # Upgrades
 
+## 0.5.0 — signal 11.0.0, signal-energy-nexus 0.5.0 on signal-flow 61.0.0
+
+Branch-only preparation for the Flow 0.54.7 rollout; deployed with it, in the same Home generation, with signal-energy-nexus 0.5.0 and energy-nexus 0.3.2.
+
+Repins signal 10.3.0 to 11.0.0 (`6d4eb74`), datom-codec to `09a0526`, protos to `c93b598` and signal-energy-nexus to 0.5.0 (`ee48780`), which carries signal-flow 61.0.0 (`4871bb8`, the contract Flow 0.54.7 is built with). `signal` declares `links = "signal"`, so a consumer carries one signal.
+
+This crate's own types, its authored `signal.ethos` and its wire form are unchanged, and so is its contract digest; the Rust types of the recipient it reaches through signal-energy-nexus change (`Address.topic` is the `Topic` newtype). No Ethos output is generated from `signal.ethos` in this repository (it is included as text and checked by a test); nothing to regenerate.
+
 ## 0.4.0 — no polling interval; signal-energy-nexus 0.4.0
 
 `Set.Polling` is removed: the Energy Nexus reads a provider when a turn ends on it, when a window resets and when a reading is asked for while older than the last turn end, never on an interval, so no setting names one. `Configure.Polling.5` no longer reads, and a `Set` archive no longer carries the variant (every later variant's discriminant moves down by one; the contract digest changes with the authored `signal.ethos`). Pins signal-energy-nexus 0.4.0, which repins signal-flow 57.0.0 at `3d0a4cd`.
