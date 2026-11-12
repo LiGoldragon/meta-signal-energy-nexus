@@ -1,15 +1,9 @@
 Signal
-[ energy:[ Provider Name Threshold Reminder Minutes Percent ResetId Target ] ] ; imports Energy Nexus vocabulary
-[ Call.{ Caller Input.[ Configure.Set ] } ]                 ; carries the peer caller and meta input
-[ Configured.Set                                            ; meta outputs
-  ConfigureRefused.String ]
-[ Caller.{ ProcessId.Integer UserId.Integer }               ; local envelope and configuration types
-  Set.[ Threshold.Threshold                                 ; one configurable value per variant
-        Reminder.Reminder
-        RemoveReminder.Reminder
-        RedeemExpiring.Minutes
-        RedeemUsedAtLeast.Percent
-        Target.{ Provider Target }                          ; one provider target
-        WindowTarget.{ Provider Name Target }               ; one window override
-        Program.{ Program.[ Codex Flow ] Path.String }      ; one configured external program
-        Credentials.Path ] ]
+[ :crate:library:[ ConfigurationChange ConfigurationSnapshot ] ; public meta vocabulary
+  :signal_energy_nexus:library:[ Caller Failure ] ]         ; peer caller and typed failure
+[ Configure.ConfigurationChange                           ; one owner-specific setting
+  Configuration ]                                         ; effective independently versioned readback
+[ Configured.ConfigurationChange                          ; only after owner persistence succeeds
+  Configuration.ConfigurationSnapshot                     ; both or explicitly partial parts
+  Refused.Failure ]                                       ; bounded typed failure
+[ Call.{ Caller Query } ]                                 ; public meta envelope
