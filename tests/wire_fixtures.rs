@@ -196,13 +196,6 @@ fn sets() -> Vec<(&'static str, Set)> {
         (
             "Target",
             Set::Target(ProviderTarget {
-                provider: Provider::Claude,
-                target: Target::Even,
-            }),
-        ),
-        (
-            "WindowTarget",
-            Set::WindowTarget(WindowTarget {
                 provider: Provider::Codex,
                 name: Name::FableWeek,
                 target: target(),
@@ -247,16 +240,17 @@ fn produce(wire: &mut Wire) {
         ProviderTarget,
         ProviderTarget {
             provider: Provider::Claude,
+            name: Name::Week,
             target: target()
         }
     );
     case!(
         wire,
-        "WindowTarget",
-        WindowTarget,
-        WindowTarget {
+        "ProviderTarget.Even",
+        ProviderTarget,
+        ProviderTarget {
             provider: Provider::Codex,
-            name: Name::Week,
+            name: Name::Session,
             target: Target::Even
         }
     );
@@ -299,9 +293,24 @@ fn produce(wire: &mut Wire) {
     }
     case!(
         wire,
-        "Response.ConfigureRefused",
+        "Response.ConfigureRefused.Reason",
         Output,
-        Output::ConfigureRefused("the program is not installed".to_string())
+        Output::ConfigureRefused(ConfigureRefused::Reason(
+            "the program is not installed".to_string()
+        ))
+    );
+    case!(
+        wire,
+        "Response.ConfigureRefused.TargetExceedsWindow",
+        Output,
+        Output::ConfigureRefused(ConfigureRefused::TargetExceedsWindow(ProviderTarget {
+            provider: Provider::Claude,
+            name: Name::Session,
+            target: Target::SpendBy(signal_energy_nexus::SpendBy_Data {
+                hours: signal_energy_nexus::Hours(24),
+                percent: Percent(92),
+            }),
+        }))
     );
 }
 

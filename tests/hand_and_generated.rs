@@ -11,7 +11,7 @@
 //!
 //! 0.6.0 grows `Set` by the schedule's settings (its archive grows to the
 //! size of `Span`) and `Target.SpendBy` by a percent, so `Set`, `Input`,
-//! `Call`, `Output`, `ProviderTarget` and `WindowTarget` change by design and
+//! `Call`, `Output`, `ProviderTarget` and `WindowTarget` (since folded into `ProviderTarget`) change by design and
 //! are held by `tests/wire_fixtures.rs` instead; the types proved here are
 //! the ones 0.6.0 leaves as they were.
 

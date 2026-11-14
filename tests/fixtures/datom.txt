@@ -11,8 +11,8 @@ Target.SpendBy SpendBy.{ 48 80 }
 Threshold { Fair 40 }
 Reminder { Codex Low { Mind energyNexus Sol } }
 Caller { 4242 1001 }
-ProviderTarget { Claude SpendBy.{ 48 80 } }
-WindowTarget { Codex Week Even }
+ProviderTarget { Claude Week SpendBy.{ 48 80 } }
+ProviderTarget.Even { Codex Session Even }
 Program.Codex Codex
 Program.Flow Flow
 Path /home/li/.codex/auth.json
@@ -37,14 +37,10 @@ Set.RedeemUsedAtLeast RedeemUsedAtLeast.90
 Query.Configure.RedeemUsedAtLeast Configure.RedeemUsedAtLeast.90
 Call.RedeemUsedAtLeast { { 4242 1001 } Configure.RedeemUsedAtLeast.90 }
 Response.Configured.RedeemUsedAtLeast Configured.RedeemUsedAtLeast.90
-Set.Target Target.{ Claude Even }
-Query.Configure.Target Configure.Target.{ Claude Even }
-Call.Target { { 4242 1001 } Configure.Target.{ Claude Even } }
-Response.Configured.Target Configured.Target.{ Claude Even }
-Set.WindowTarget WindowTarget.{ Codex FableWeek SpendBy.{ 48 80 } }
-Query.Configure.WindowTarget Configure.WindowTarget.{ Codex FableWeek SpendBy.{ 48 80 } }
-Call.WindowTarget { { 4242 1001 } Configure.WindowTarget.{ Codex FableWeek SpendBy.{ 48 80 } } }
-Response.Configured.WindowTarget Configured.WindowTarget.{ Codex FableWeek SpendBy.{ 48 80 } }
+Set.Target Target.{ Codex FableWeek SpendBy.{ 48 80 } }
+Query.Configure.Target Configure.Target.{ Codex FableWeek SpendBy.{ 48 80 } }
+Call.Target { { 4242 1001 } Configure.Target.{ Codex FableWeek SpendBy.{ 48 80 } } }
+Response.Configured.Target Configured.Target.{ Codex FableWeek SpendBy.{ 48 80 } }
 Set.Program Program.{ Flow /home/li/.codex/auth.json }
 Query.Configure.Program Configure.Program.{ Flow /home/li/.codex/auth.json }
 Call.Program { { 4242 1001 } Configure.Program.{ Flow /home/li/.codex/auth.json } }
@@ -77,4 +73,5 @@ Set.TimeZone TimeZone.America/Mexico_City
 Query.Configure.TimeZone Configure.TimeZone.America/Mexico_City
 Call.TimeZone { { 4242 1001 } Configure.TimeZone.America/Mexico_City }
 Response.Configured.TimeZone Configured.TimeZone.America/Mexico_City
-Response.ConfigureRefused ConfigureRefused.«the program is not installed»
+Response.ConfigureRefused.Reason ConfigureRefused.Reason.«the program is not installed»
+Response.ConfigureRefused.TargetExceedsWindow ConfigureRefused.TargetExceedsWindow.{ Claude Session SpendBy.{ 24 92 } }
