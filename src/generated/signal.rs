@@ -14,6 +14,13 @@ pub struct Call {
 #[rustfmt::skip]
 #[derive(rkyv::Archive, rkyv::Serialize, rkyv::Deserialize, Clone, Debug, PartialEq, Eq, Hash)]
 #[cfg_attr(feature = "datom", derive(datom_codec::Datomizable, datom_codec::Composing))]
+pub enum ConfigureRefused {
+    TargetExceedsWeek(signal_energy_nexus::ProviderTarget),
+    RuleRefused(String),
+}
+#[rustfmt::skip]
+#[derive(rkyv::Archive, rkyv::Serialize, rkyv::Deserialize, Clone, Debug, PartialEq, Eq, Hash)]
+#[cfg_attr(feature = "datom", derive(datom_codec::Datomizable, datom_codec::Composing))]
 pub enum Program {
     Codex,
     Flow,
@@ -39,7 +46,6 @@ pub enum Set {
     RedeemExpiring(signal_energy_nexus::Minutes),
     RedeemUsedAtLeast(signal_energy_nexus::Percent),
     Target(signal_energy_nexus::ProviderTarget),
-    WindowTarget(signal_energy_nexus::WindowTarget),
     Program(Program_Data),
     Credentials(Path),
     Span(signal_energy_nexus::Span),
@@ -60,7 +66,7 @@ pub enum Input {
 #[cfg_attr(feature = "datom", derive(datom_codec::Datomizable, datom_codec::Composing))]
 pub enum Output {
     Configured(Set),
-    ConfigureRefused(String),
+    ConfigureRefused(ConfigureRefused),
 }
 #[rustfmt::skip]
 #[allow(clippy::result_large_err, clippy::ptr_arg, clippy::borrowed_box)]

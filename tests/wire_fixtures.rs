@@ -30,6 +30,11 @@
 //! `SpendBy` hold 48 hours, and `contract.txt` holds the identity the changed
 //! comment on the `Target` setting gives.
 //!
+//! The 0.7.0 target is the Week window alone: `Set.WindowTarget` is gone (every
+//! `Set` variant after it moves down one tag), and `ConfigureRefused` is an
+//! enum, `TargetExceedsWeek` and `RuleRefused`, so the lines that hold a `Set`
+//! or a refusal are 0.7.0's.
+//!
 //! The values are built from the types ethos-zero generates. The fixture
 //! lines keep the 0.4.0 names: `Query`, `Response` and `ProgramPath` are the
 //! generated `Input`, `Output` and `Program_Data`; the caller's two integers
@@ -201,14 +206,6 @@ fn sets() -> Vec<(&'static str, Set)> {
             }),
         ),
         (
-            "WindowTarget",
-            Set::WindowTarget(WindowTarget {
-                provider: Provider::Codex,
-                name: Name::FableWeek,
-                target: target(),
-            }),
-        ),
-        (
             "Program",
             Set::Program(Program_Data {
                 program: Program::Flow,
@@ -248,16 +245,6 @@ fn produce(wire: &mut Wire) {
         ProviderTarget {
             provider: Provider::Claude,
             target: target()
-        }
-    );
-    case!(
-        wire,
-        "WindowTarget",
-        WindowTarget,
-        WindowTarget {
-            provider: Provider::Codex,
-            name: Name::Week,
-            target: Target::Even
         }
     );
     for program in [Program::Codex, Program::Flow] {
@@ -301,7 +288,18 @@ fn produce(wire: &mut Wire) {
         wire,
         "Response.ConfigureRefused",
         Output,
-        Output::ConfigureRefused("the program is not installed".to_string())
+        Output::ConfigureRefused(ConfigureRefused::RuleRefused(
+            "the program is not installed".to_string()
+        ))
+    );
+    case!(
+        wire,
+        "Response.ConfigureRefused.TargetExceedsWeek",
+        Output,
+        Output::ConfigureRefused(ConfigureRefused::TargetExceedsWeek(ProviderTarget {
+            provider: Provider::Claude,
+            target: target()
+        }))
     );
 }
 

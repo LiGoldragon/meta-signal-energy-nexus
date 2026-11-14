@@ -8,7 +8,7 @@ pub use generated::signal::*;
 
 pub use signal_energy_nexus::{
     Baseline, Caller, Minutes, Name, Override, Percent, Provider, ProviderTarget, Reminder,
-    ResetId, Span, Target, Threshold, TimeZone, WindowTarget,
+    ResetId, Span, Target, Threshold, TimeZone,
 };
 
 /// The authored meta Signal; its text is the contract's identity on the wire.

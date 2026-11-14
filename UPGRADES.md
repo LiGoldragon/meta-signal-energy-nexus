@@ -1,8 +1,14 @@
 # Upgrades
 
-## 0.7.0 — signal-energy-nexus 0.7.0: SpendBy carries hours before the window resets
+## 0.7.0 — signal-energy-nexus 0.7.0: a target is the Week window alone; ConfigureRefused is typed
 
-Pins signal-energy-nexus 0.7.0 (`3155eb0`): `Target.SpendBy` is `{ Hours Percent }` in place of `{ Instant Percent }`, the hours before the window resets that the target falls, recurring with every reset. This contract's own types are unchanged, and the bytes of a `Set.Target` and a `Set.WindowTarget` keep their size; only the meaning of a `SpendBy` moves (its datom text now reads `SpendBy.{ 48 80 }`). The digest moves by the one comment on `Target.ProviderTarget` in `ethos/signal.ethos`, `-7872982838352770340` to `-6093066433882140382`, so a 0.6.0 peer is refused at its greeting rather than misreading a target. `tests/fixtures/` holds the lines that carry a `SpendBy` and the contract identity as 0.7.0 writes them.
+Pins signal-energy-nexus 0.7.0 (`16c7ad9`): `Target.SpendBy` is `{ Hours Percent }` in place of `{ Instant Percent }`, the hours before the window resets that the target falls, recurring with every reset (datom text `SpendBy.{ 48 80 }`).
+
+A target is the Week window alone. `Set.WindowTarget` is removed, and the signal's `WindowTarget` type with it: `Set.Target.ProviderTarget` sets one provider's target, applied to its Week window, the Session window takes none (the session is a ceiling on the rate of work), and every other window is paced evenly. Every `Set` variant after `Target` moves down one tag, so every line holding a `Set` in `tests/fixtures/` is 0.7.0's.
+
+`ConfigureRefused` is an enum in place of a string: `ConfigureRefused.TargetExceedsWeek.ProviderTarget` refuses a target whose hours exceed the Week window's duration (as the daemon's held reading says; with no reading held it is accepted), carrying the target as sent, and `ConfigureRefused.RuleRefused.String` is the refusal in words, as the string was. Datom text `ConfigureRefused.RuleRefused.«the program is not installed»`; Rust `ConfigureRefused::RuleRefused(String)`.
+
+The digest moves with the authored `signal.ethos` (`-7872982838352770340` before this change's own comment edit moved it to `-6093066433882140382` in the 0.7.0 branch; now `5914257489826601562`), so an earlier peer is refused at its greeting. `tests/fixtures/` holds the lines that carry a `Set`, a refusal and the contract identity as 0.7.0 writes them.
 
 ## 0.6.0 — generated from Ethos by ethos-zero 28.0.0; signal-energy-nexus 0.6.0
 
