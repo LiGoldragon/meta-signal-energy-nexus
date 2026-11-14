@@ -1,5 +1,17 @@
 # Upgrades
 
+## 0.6.0 — the usefulness schedule: spans, overrides and a baseline
+
+`Set` gains the five settings of the schedule pace is counted against (vision energy-nexus-v1, "Pace: over or under, per day"), each one at a time: `Span` adds one span, `RemoveSpan.Span` removes it, `Override` sets one stretch of time over the schedule, `RemoveOverride.Override` removes it, and `Baseline` sets the usefulness of every hour no span names. The types are signal-energy-nexus 0.6.0's (`d7d9f8d`), which this crate repins and re-exports (`Span`, `Override`, `Baseline`).
+
+```datom
+Configure.Baseline.20
+Configure.Span.{ [ Monday Tuesday Wednesday Thursday Friday Saturday Sunday ] 8 22 100 }
+Configure.Override.{ 1794859200 1794866400 0 }
+```
+
+The new variants follow `Credentials`, so every earlier variant keeps its discriminant and its datom text. Their archive does not: a `Set` archive is as large as its largest variant, now `Span`, so the bytes of every `Set` and of what carries one move. `signal.ethos` names the new settings and imports, so the contract digest moves and a 0.5.0 peer is refused at the greeting. `tests/fixtures/` is written again by this revision.
+
 ## 0.5.0 — signal 11.0.0, signal-energy-nexus 0.5.0 on signal-flow 61.0.0
 
 Branch-only preparation for the Flow 0.54.7 rollout; deployed with it, in the same Home generation, with signal-energy-nexus 0.5.0 and energy-nexus 0.3.2.

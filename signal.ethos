@@ -1,5 +1,5 @@
 Signal
-[ energy:[ Provider Name Threshold Reminder Minutes Percent ResetId Target ] ] ; imports Energy Nexus vocabulary
+[ energy:[ Provider Name Threshold Reminder Minutes Percent ResetId Target Span Override Baseline ] ] ; imports Energy Nexus vocabulary
 [ Call.{ Caller Input.[ Configure.Set ] } ]                 ; carries the peer caller and meta input
 [ Configured.Set                                            ; meta outputs
   ConfigureRefused.String ]
@@ -12,4 +12,9 @@ Signal
         Target.{ Provider Target }                          ; one provider target
         WindowTarget.{ Provider Name Target }               ; one window override
         Program.{ Program.[ Codex Flow ] Path.String }      ; one configured external program
-        Credentials.Path ] ]
+        Credentials.Path
+        Span                                                ; one span of the schedule, added
+        RemoveSpan.Span
+        Override                                            ; one stretch of time, set over the schedule
+        RemoveOverride.Override
+        Baseline ] ]                                        ; the usefulness of every hour no span names
