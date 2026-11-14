@@ -9,7 +9,7 @@ Signal
         RemoveReminder.Reminder
         RedeemExpiring.Minutes
         RedeemUsedAtLeast.Percent
-        Target.ProviderTarget                               ; one provider target
+        Target.ProviderTarget                               ; one provider target, a SpendBy counted in hours before the window resets
         WindowTarget                                        ; one window override
         Program.{ Program.[ Codex Flow ] Path.String }      ; one configured external program
         Credentials.Path

@@ -25,6 +25,11 @@
 //! percent. So every line that holds a `Set` or a `Target` is 0.6.0's, and
 //! each new setting has lines of its own; every other line is the 0.4.0 line.
 //!
+//! 0.7.0 makes `Target.SpendBy` carry hours before the window resets in place
+//! of an instant (signal-energy-nexus 0.7.0), so the lines that hold a
+//! `SpendBy` hold 48 hours, and `contract.txt` holds the identity the changed
+//! comment on the `Target` setting gives.
+//!
 //! The values are built from the types ethos-zero generates. The fixture
 //! lines keep the 0.4.0 names: `Query`, `Response` and `ProgramPath` are the
 //! generated `Input`, `Output` and `Program_Data`; the caller's two integers
@@ -152,7 +157,7 @@ fn threshold() -> Threshold {
 
 fn target() -> Target {
     Target::SpendBy(signal_energy_nexus::SpendBy_Data {
-        instant: signal_energy_nexus::Instant(1_789_200_000),
+        hours: signal_energy_nexus::Hours(48),
         percent: Percent(80),
     })
 }

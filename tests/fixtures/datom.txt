@@ -7,11 +7,11 @@ Name.Week Week
 Name.FableWeek FableWeek
 ResetId reset-a1
 Target.Even Even
-Target.SpendBy SpendBy.{ 1789200000 80 }
+Target.SpendBy SpendBy.{ 48 80 }
 Threshold { Fair 40 }
 Reminder { Codex Low { Mind energyNexus Sol } }
 Caller { 4242 1001 }
-ProviderTarget { Claude SpendBy.{ 1789200000 80 } }
+ProviderTarget { Claude SpendBy.{ 48 80 } }
 WindowTarget { Codex Week Even }
 Program.Codex Codex
 Program.Flow Flow
@@ -41,10 +41,10 @@ Set.Target Target.{ Claude Even }
 Query.Configure.Target Configure.Target.{ Claude Even }
 Call.Target { { 4242 1001 } Configure.Target.{ Claude Even } }
 Response.Configured.Target Configured.Target.{ Claude Even }
-Set.WindowTarget WindowTarget.{ Codex FableWeek SpendBy.{ 1789200000 80 } }
-Query.Configure.WindowTarget Configure.WindowTarget.{ Codex FableWeek SpendBy.{ 1789200000 80 } }
-Call.WindowTarget { { 4242 1001 } Configure.WindowTarget.{ Codex FableWeek SpendBy.{ 1789200000 80 } } }
-Response.Configured.WindowTarget Configured.WindowTarget.{ Codex FableWeek SpendBy.{ 1789200000 80 } }
+Set.WindowTarget WindowTarget.{ Codex FableWeek SpendBy.{ 48 80 } }
+Query.Configure.WindowTarget Configure.WindowTarget.{ Codex FableWeek SpendBy.{ 48 80 } }
+Call.WindowTarget { { 4242 1001 } Configure.WindowTarget.{ Codex FableWeek SpendBy.{ 48 80 } } }
+Response.Configured.WindowTarget Configured.WindowTarget.{ Codex FableWeek SpendBy.{ 48 80 } }
 Set.Program Program.{ Flow /home/li/.codex/auth.json }
 Query.Configure.Program Configure.Program.{ Flow /home/li/.codex/auth.json }
 Call.Program { { 4242 1001 } Configure.Program.{ Flow /home/li/.codex/auth.json } }
