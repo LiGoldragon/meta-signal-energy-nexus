@@ -1,0 +1,15 @@
+Signal
+[ signal_energy_nexus:[ Caller Threshold Reminder Minutes Percent ProviderTarget WindowTarget ] ] ; imports the Energy vocabulary and the ordinary envelope
+[ Configure.Set ]                                           ; the meta input
+[ Configured.Set                                            ; meta outputs
+  ConfigureRefused.String ]
+[ Call.{ Caller Input }                                     ; carries the peer caller and the meta input
+  Set.[ Threshold.Threshold                                 ; one configurable value per variant
+        Reminder.Reminder
+        RemoveReminder.Reminder
+        RedeemExpiring.Minutes
+        RedeemUsedAtLeast.Percent
+        Target.ProviderTarget                               ; one provider target
+        WindowTarget                                        ; one window override
+        Program.{ Program.[ Codex Flow ] Path.String }      ; one configured external program
+        Credentials.Path ] ]

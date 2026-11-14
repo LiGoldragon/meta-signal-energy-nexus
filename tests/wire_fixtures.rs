@@ -13,6 +13,17 @@
 //! `topic`, which at 9f37cb7 builds the alias `Topic = String` and here builds
 //! the `Topic` newtype. A change to a byte, a text or a digest fails the test
 //! naming the line.
+//!
+//! `contract.txt` is the identity of the generated contract: its Ethos text
+//! had to change (ethos-zero 28 refuses the 0.5.0 text), so its digest and
+//! the greeting that carries it moved; `binary.txt` and `datom.txt` are the
+//! 0.4.0 fixtures, unchanged. `hand_and_generated.rs` holds the 0.5.0 digest.
+//!
+//! The values are built from the types ethos-zero generates. The fixture
+//! lines keep the 0.4.0 names: `Query`, `Response` and `ProgramPath` are the
+//! generated `Input`, `Output` and `Program_Data`; the caller's two integers
+//! and a threshold's percent are the ordinary contract's newtypes
+//! (`ProcessId`, `UserId`, `Left`), each archiving as its content.
 
 use signal::{ByteViewable, Contracted, Restorable, Signal, Signalizable};
 use meta_signal_energy_nexus::*;
@@ -121,15 +132,15 @@ fn reminder(provider: Provider, level: signal_energy_nexus::Level) -> Reminder {
 
 fn caller() -> Caller {
     Caller {
-        process_id: 4242,
-        user_id: 1001,
+        process_id: signal_energy_nexus::ProcessId(4242),
+        user_id: signal_energy_nexus::UserId(1001),
     }
 }
 
 fn threshold() -> Threshold {
     Threshold {
         level: signal_energy_nexus::Level::Fair,
-        left: Percent(40),
+        left: signal_energy_nexus::Left(Percent(40)),
     }
 }
 
@@ -166,7 +177,7 @@ fn sets() -> Vec<(&'static str, Set)> {
         ),
         (
             "Program",
-            Set::Program(ProgramPath {
+            Set::Program(Program_Data {
                 program: Program::Flow,
                 path: path(),
             }),
@@ -217,8 +228,8 @@ fn produce(wire: &mut Wire) {
     case!(
         wire,
         "ProgramPath",
-        ProgramPath,
-        ProgramPath {
+        Program_Data,
+        Program_Data {
             program: Program::Codex,
             path: path()
         }
@@ -228,8 +239,8 @@ fn produce(wire: &mut Wire) {
         case!(
             wire,
             format!("Query.Configure.{variant}"),
-            Query,
-            Query::Configure(set.clone())
+            Input,
+            Input::Configure(set.clone())
         );
         case!(
             wire,
@@ -237,21 +248,21 @@ fn produce(wire: &mut Wire) {
             Call,
             Call {
                 caller: caller(),
-                input: Query::Configure(set.clone())
+                input: Input::Configure(set.clone())
             }
         );
         case!(
             wire,
             format!("Response.Configured.{variant}"),
-            Response,
-            Response::Configured(set)
+            Output,
+            Output::Configured(set)
         );
     }
     case!(
         wire,
         "Response.ConfigureRefused",
-        Response,
-        Response::ConfigureRefused("the program is not installed".to_string())
+        Output,
+        Output::ConfigureRefused("the program is not installed".to_string())
     );
 }
 
