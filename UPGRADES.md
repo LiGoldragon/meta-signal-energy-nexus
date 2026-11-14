@@ -8,7 +8,7 @@ A target is the Week window alone. `Set.WindowTarget` is removed, and the signal
 
 `ConfigureRefused` is an enum in place of a string: `ConfigureRefused.TargetExceedsWeek.ProviderTarget` refuses a target whose hours exceed the Week window's duration (as the daemon's held reading says; with no reading held it is accepted), carrying the target as sent, and `ConfigureRefused.RuleRefused.String` is the refusal in words, as the string was. Datom text `ConfigureRefused.RuleRefused.«the program is not installed»`; Rust `ConfigureRefused::RuleRefused(String)`.
 
-The digest moves with the authored `signal.ethos` (`-7872982838352770340` before this change's own comment edit moved it to `-6093066433882140382` in the 0.7.0 branch; now `5914257489826601562`), so an earlier peer is refused at its greeting. `tests/fixtures/` holds the lines that carry a `Set`, a refusal and the contract identity as 0.7.0 writes them.
+The digest is the authored `signal.ethos`'s, and it moves with the text: `192963525083358617` at 0.6.0, `5914257489826601562` now (the comment edit that first moved it for the hours, `-6093066433882140382`, is subsumed), so a 0.6.0 peer is refused at its greeting. `tests/fixtures/` holds the lines that carry a `Set`, a refusal and the contract identity as 0.7.0 writes them.
 
 ## 0.6.0 — generated from Ethos by ethos-zero 28.0.0; signal-energy-nexus 0.6.0
 
