@@ -53,4 +53,24 @@ Set.Credentials Credentials./home/li/.codex/auth.json
 Query.Configure.Credentials Configure.Credentials./home/li/.codex/auth.json
 Call.Credentials { { 4242 1001 } Configure.Credentials./home/li/.codex/auth.json }
 Response.Configured.Credentials Configured.Credentials./home/li/.codex/auth.json
+Set.Span Span.{ [ Saturday Sunday ] 9 13 50 }
+Query.Configure.Span Configure.Span.{ [ Saturday Sunday ] 9 13 50 }
+Call.Span { { 4242 1001 } Configure.Span.{ [ Saturday Sunday ] 9 13 50 } }
+Response.Configured.Span Configured.Span.{ [ Saturday Sunday ] 9 13 50 }
+Set.RemoveSpan RemoveSpan.{ [ Saturday Sunday ] 9 13 50 }
+Query.Configure.RemoveSpan Configure.RemoveSpan.{ [ Saturday Sunday ] 9 13 50 }
+Call.RemoveSpan { { 4242 1001 } Configure.RemoveSpan.{ [ Saturday Sunday ] 9 13 50 } }
+Response.Configured.RemoveSpan Configured.RemoveSpan.{ [ Saturday Sunday ] 9 13 50 }
+Set.Override Override.{ 1794859200 1794866400 0 }
+Query.Configure.Override Configure.Override.{ 1794859200 1794866400 0 }
+Call.Override { { 4242 1001 } Configure.Override.{ 1794859200 1794866400 0 } }
+Response.Configured.Override Configured.Override.{ 1794859200 1794866400 0 }
+Set.RemoveOverride RemoveOverride.{ 1794859200 1794866400 0 }
+Query.Configure.RemoveOverride Configure.RemoveOverride.{ 1794859200 1794866400 0 }
+Call.RemoveOverride { { 4242 1001 } Configure.RemoveOverride.{ 1794859200 1794866400 0 } }
+Response.Configured.RemoveOverride Configured.RemoveOverride.{ 1794859200 1794866400 0 }
+Set.Baseline Baseline.20
+Query.Configure.Baseline Configure.Baseline.20
+Call.Baseline { { 4242 1001 } Configure.Baseline.20 }
+Response.Configured.Baseline Configured.Baseline.20
 Response.ConfigureRefused ConfigureRefused.«the program is not installed»

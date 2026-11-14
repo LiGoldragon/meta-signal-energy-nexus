@@ -1,6 +1,4 @@
-//! The wire of this contract, held against fixtures made by the 0.4.0
-//! revision (9f37cb7, on signal 10.3.0, signal-energy-nexus 97741d2 and
-//! signal-flow 57 at 3d0a4cd).
+//! The wire of this contract, held against fixtures.
 //!
 //! Each fixture line is `Name value`. `binary.txt` holds the rkyv archive of
 //! one value of every wire type, in hex; `datom.txt` holds its datom text
@@ -8,11 +6,13 @@
 //! identity the crate exposes: the digest of its authored Ethos source and the
 //! greeting and receipt that carry it.
 //!
-//! The fixtures were produced by running this file at 9f37cb7 with
-//! `WIRE_FIXTURES_WRITE=<directory>`; the one line that differs there is
-//! `topic`, which at 9f37cb7 builds the alias `Topic = String` and here builds
-//! the `Topic` newtype. A change to a byte, a text or a digest fails the test
-//! naming the line.
+//! The fixtures were first produced by running this file at 9f37cb7 (0.4.0)
+//! with `WIRE_FIXTURES_WRITE=<directory>`. 0.6.0 wrote them again: `Set` gained
+//! the schedule's five settings, and its archive is now as large as its
+//! largest variant, `Span`, so the binary line of every `Set`, `Query`, `Call`
+//! and `Response` moved, as did the contract identity. Every datom text line
+//! of 0.4.0 is unchanged, and so is every binary line of a type that holds no
+//! `Set`. A change to a byte, a text or a digest fails the test naming the line.
 
 use signal::{ByteViewable, Contracted, Restorable, Signal, Signalizable};
 use meta_signal_energy_nexus::*;
@@ -86,7 +86,7 @@ macro_rules! case {
         $wire.binary.push((name.clone(), hex(bytes.bytes())));
         if let Some(held) = $wire.held_binary.get(&name) {
             let restored = Signal::<$type>::from(unhex(held)).restore().unwrap();
-            assert_eq!(restored, value, "the 0.4.0 bytes of {name} restore to the value");
+            assert_eq!(restored, value, "the held bytes of {name} restore to the value");
         }
         #[cfg(feature = "datom")]
         {
@@ -94,7 +94,7 @@ macro_rules! case {
             $wire.datom.push((name.clone(), text));
             if let Some(held) = $wire.held_datom.get(&name) {
                 let restored: $type = datom_value(held);
-                assert_eq!(restored, value, "the 0.4.0 text of {name} reads as the value");
+                assert_eq!(restored, value, "the held text of {name} reads as the value");
             }
         }
     }};
@@ -172,7 +172,30 @@ fn sets() -> Vec<(&'static str, Set)> {
             }),
         ),
         ("Credentials", Set::Credentials(path())),
+        ("Span", Set::Span(span())),
+        ("RemoveSpan", Set::RemoveSpan(span())),
+        ("Override", Set::Override(dentist())),
+        ("RemoveOverride", Set::RemoveOverride(dentist())),
+        ("Baseline", Set::Baseline(Baseline(Percent(20)))),
     ]
+}
+
+fn span() -> Span {
+    use signal_energy_nexus::{Hour, Usefulness, Weekday};
+    Span {
+        weekday_vector: vec![Weekday::Saturday, Weekday::Sunday],
+        from: Hour(9),
+        to: Hour(13),
+        usefulness: Usefulness(Percent(50)),
+    }
+}
+
+fn dentist() -> Override {
+    Override {
+        from: signal_energy_nexus::Instant(1_794_859_200),
+        to: signal_energy_nexus::Instant(1_794_866_400),
+        usefulness: signal_energy_nexus::Usefulness(Percent(0)),
+    }
 }
 
 fn produce(wire: &mut Wire) {
@@ -306,20 +329,20 @@ fn differences(name: &str, produced: &[(String, String)]) -> Vec<String> {
     for (key, value) in produced {
         match held.get(key) {
             Some(expected) if expected == value => {}
-            Some(expected) => found.push(format!("{name} {key}: 0.4.0 {expected} now {value}")),
-            None => found.push(format!("{name} {key}: not in the 0.4.0 fixture, now {value}")),
+            Some(expected) => found.push(format!("{name} {key}: held {expected} now {value}")),
+            None => found.push(format!("{name} {key}: not in the held fixture, now {value}")),
         }
     }
     for key in held.keys() {
         if !produced.iter().any(|(produced_key, _)| produced_key == key) {
-            found.push(format!("{name} {key}: in the 0.4.0 fixture, not produced now"));
+            found.push(format!("{name} {key}: in the held fixture, not produced now"));
         }
     }
     found
 }
 
 #[test]
-fn the_wire_is_the_0_4_0_wire() {
+fn the_wire_is_the_held_wire() {
     let writing = std::env::var("WIRE_FIXTURES_WRITE").ok();
     let mut wire = Wire {
         held_binary: BTreeMap::new(),
@@ -351,7 +374,7 @@ fn the_wire_is_the_0_4_0_wire() {
         .collect::<Vec<_>>();
     for (key, value) in &produced_contract {
         if held_contract.get(key) != Some(value) {
-            found.push(format!("contract.txt {key}: 0.4.0 {:?} now {value}", held_contract.get(key)));
+            found.push(format!("contract.txt {key}: held {:?} now {value}", held_contract.get(key)));
         }
     }
     assert!(found.is_empty(), "the wire moved:\n{}", found.join("\n"));
