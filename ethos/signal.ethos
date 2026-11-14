@@ -1,5 +1,5 @@
 Signal
-[ signal_energy_nexus:[ Caller Threshold Reminder Minutes Percent ProviderTarget WindowTarget ] ] ; imports the Energy vocabulary and the ordinary envelope
+[ signal_energy_nexus:[ Caller Threshold Reminder Minutes Percent ProviderTarget WindowTarget Span Override Baseline TimeZone ] ] ; imports the Energy vocabulary and the ordinary envelope
 [ Configure.Set ]                                           ; the meta input
 [ Configured.Set                                            ; meta outputs
   ConfigureRefused.String ]
@@ -12,4 +12,10 @@ Signal
         Target.ProviderTarget                               ; one provider target
         WindowTarget                                        ; one window override
         Program.{ Program.[ Codex Flow ] Path.String }      ; one configured external program
-        Credentials.Path ] ]
+        Credentials.Path
+        Span                                                ; one span of the schedule, added
+        RemoveSpan.Span
+        Override                                            ; one stretch of time, set over the schedule
+        RemoveOverride.Override
+        Baseline                                            ; the usefulness of every hour no span names
+        TimeZone ] ]                                        ; the owner's time zone; the system's until one is set

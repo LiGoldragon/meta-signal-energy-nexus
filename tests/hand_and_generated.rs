@@ -8,6 +8,12 @@
 //! `datom` the two texts must be one. The contract digest is compared last:
 //! it is the hash of the authored Ethos text, and the text had to change,
 //! since ethos-zero 28 refuses the 0.5.0 text (`Duplicate.Input`).
+//!
+//! 0.6.0 grows `Set` by the schedule's settings (its archive grows to the
+//! size of `Span`) and `Target.SpendBy` by a percent, so `Set`, `Input`,
+//! `Call`, `Output`, `ProviderTarget` and `WindowTarget` change by design and
+//! are held by `tests/wire_fixtures.rs` instead; the types proved here are
+//! the ones 0.6.0 leaves as they were.
 
 use signal::Contracted;
 use std::fmt::Debug;
@@ -159,59 +165,8 @@ impl<T> Datom for T {
     }
 }
 
-fn address(aspect: signal_flow::Aspect, model: signal_flow::Model) -> hand::Address {
-    hand::Address {
-        aspect,
-        topic: signal_flow::Topic("energyNexus".to_string()),
-        model,
-    }
-}
-
-fn reminder(provider: hand::Provider, level: hand::Level, model: signal_flow::Model) -> hand::Reminder {
-    hand::Reminder {
-        provider,
-        level,
-        recipient: hand::Recipient(address(signal_flow::Aspect::Mind, model)),
-    }
-}
-
 fn path() -> hand::Path {
     hand::Path("/home/li/.codex/auth.json".to_string())
-}
-
-fn sets() -> Vec<hand::Set> {
-    use hand::{Level, Provider, Target};
-    let mut sets = Vec::new();
-    for level in [Level::Plenty, Level::Fair, Level::Low, Level::Out] {
-        sets.push(hand::Set::Threshold(hand::Threshold {
-            level: level.clone(),
-            left: hand::Percent(40),
-        }));
-        sets.push(hand::Set::Reminder(reminder(Provider::Codex, level.clone(), signal_flow::Model::Sol)));
-        sets.push(hand::Set::RemoveReminder(reminder(Provider::Claude, level, signal_flow::Model::Fable)));
-    }
-    sets.push(hand::Set::RedeemExpiring(hand::Minutes(720)));
-    sets.push(hand::Set::RedeemUsedAtLeast(hand::Percent(90)));
-    for provider in [Provider::Claude, Provider::Codex] {
-        for target in [Target::Even, Target::SpendBy(hand::Instant(1_789_200_000))] {
-            sets.push(hand::Set::Target(hand::ProviderTarget {
-                provider: provider.clone(),
-                target: target.clone(),
-            }));
-            for name in [hand::Name::Session, hand::Name::Week, hand::Name::FableWeek] {
-                sets.push(hand::Set::WindowTarget(hand::WindowTarget {
-                    provider: provider.clone(),
-                    name,
-                    target: target.clone(),
-                }));
-            }
-        }
-    }
-    for program in [hand::Program::Codex, hand::Program::Flow] {
-        sets.push(hand::Set::Program(hand::ProgramPath { program, path: path() }));
-    }
-    sets.push(hand::Set::Credentials(path()));
-    sets
 }
 
 macro_rules! prove {
@@ -242,35 +197,6 @@ fn every_hand_type_archives_as_its_generated_type() {
         );
     }
     prove!(proof, "Path", hand::Path, generated::Path, path());
-    for set in sets() {
-        let name = format!("{set:?}");
-        if let hand::Set::Target(target) = &set {
-            prove!(proof, format!("ProviderTarget.{name}"), hand::ProviderTarget, generated::ProviderTarget, target.clone());
-        }
-        if let hand::Set::WindowTarget(target) = &set {
-            prove!(proof, format!("WindowTarget.{name}"), hand::WindowTarget, generated::WindowTarget, target.clone());
-        }
-        prove!(proof, format!("Set.{name}"), hand::Set, generated::Set, set.clone());
-        prove!(proof, format!("Query→Input.{name}"), hand::Query, generated::Input, hand::Query::Configure(set.clone()));
-        prove!(
-            proof,
-            format!("Call.{name}"),
-            hand::Call,
-            generated::Call,
-            hand::Call {
-                caller: caller.clone(),
-                input: hand::Query::Configure(set.clone())
-            }
-        );
-        prove!(proof, format!("Response→Output.Configured.{name}"), hand::Response, generated::Output, hand::Response::Configured(set));
-    }
-    prove!(
-        proof,
-        "Response→Output.ConfigureRefused",
-        hand::Response,
-        generated::Output,
-        hand::Response::ConfigureRefused("the program is not installed".to_string())
-    );
     assert!(
         proof.differences.is_empty(),
         "{} of {} cases differ:\n{}",

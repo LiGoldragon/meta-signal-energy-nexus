@@ -19,6 +19,12 @@
 //! the greeting that carries it moved; `binary.txt` and `datom.txt` are the
 //! 0.4.0 fixtures, unchanged. `hand_and_generated.rs` holds the 0.5.0 digest.
 //!
+//! 0.6.0 adds the schedule's settings to `Set` (`Span`, `RemoveSpan`,
+//! `Override`, `RemoveOverride`, `Baseline`, `TimeZone`), which grows every
+//! `Set` archive to the size of `Span`, and lets `Target.SpendBy` carry a
+//! percent. So every line that holds a `Set` or a `Target` is 0.6.0's, and
+//! each new setting has lines of its own; every other line is the 0.4.0 line.
+//!
 //! The values are built from the types ethos-zero generates. The fixture
 //! lines keep the 0.4.0 names: `Query`, `Response` and `ProgramPath` are the
 //! generated `Input`, `Output` and `Program_Data`; the caller's two integers
@@ -145,7 +151,29 @@ fn threshold() -> Threshold {
 }
 
 fn target() -> Target {
-    Target::SpendBy(signal_energy_nexus::Instant(1_789_200_000))
+    Target::SpendBy(signal_energy_nexus::SpendBy_Data {
+        instant: signal_energy_nexus::Instant(1_789_200_000),
+        percent: Percent(80),
+    })
+}
+
+fn span() -> Span {
+    use signal_energy_nexus::{Hour, To, Usefulness, Weekday};
+    Span {
+        weekday_vector: vec![Weekday::Saturday, Weekday::Sunday],
+        from: signal_energy_nexus::From(Hour(9)),
+        to: To(Hour(13)),
+        usefulness: Usefulness(Percent(50)),
+    }
+}
+
+fn stretch() -> Override {
+    use signal_energy_nexus::{Instant, Since, Until, Usefulness};
+    Override {
+        since: Since(Instant(1_794_859_200)),
+        until: Until(Instant(1_794_866_400)),
+        usefulness: Usefulness(Percent(0)),
+    }
 }
 
 fn path() -> Path {
@@ -183,6 +211,12 @@ fn sets() -> Vec<(&'static str, Set)> {
             }),
         ),
         ("Credentials", Set::Credentials(path())),
+        ("Span", Set::Span(span())),
+        ("RemoveSpan", Set::RemoveSpan(span())),
+        ("Override", Set::Override(stretch())),
+        ("RemoveOverride", Set::RemoveOverride(stretch())),
+        ("Baseline", Set::Baseline(Baseline(Percent(20)))),
+        ("TimeZone", Set::TimeZone(TimeZone("America/Mexico_City".to_string()))),
     ]
 }
 

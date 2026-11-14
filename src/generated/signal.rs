@@ -42,6 +42,12 @@ pub enum Set {
     WindowTarget(signal_energy_nexus::WindowTarget),
     Program(Program_Data),
     Credentials(Path),
+    Span(signal_energy_nexus::Span),
+    RemoveSpan(signal_energy_nexus::Span),
+    Override(signal_energy_nexus::Override),
+    RemoveOverride(signal_energy_nexus::Override),
+    Baseline(signal_energy_nexus::Baseline),
+    TimeZone(signal_energy_nexus::TimeZone),
 }
 #[rustfmt::skip]
 #[derive(rkyv::Archive, rkyv::Serialize, rkyv::Deserialize, Clone, Debug, PartialEq, Eq, Hash)]

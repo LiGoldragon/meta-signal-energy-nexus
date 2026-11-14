@@ -12,6 +12,8 @@ The greeting moves once: ethos-zero 28 refuses the 0.5.0 text (`Duplicate.Input`
 
 Rust names: `Query` is `Input`, `Response` is `Output`, `ProgramPath` is `Program_Data`; the caller's fields are signal-energy-nexus's `ProcessId` and `UserId`.
 
+**The schedule's settings** (meta-signal-energy-nexus `schedule-pace`, d2be0db and dd6ec2b, carried onto the generated contract). `Set` gains `Span`, `RemoveSpan.Span`, `Override`, `RemoveOverride.Override`, `Baseline` and `TimeZone`, each configured one at a time: `Configure.Baseline.20`, `Configure.Span.{ [ Monday Tuesday Wednesday Thursday Friday Saturday Sunday ] 8 22 100 }`, `Configure.Override.{ 1794859200 1794866400 0 }`, `Configure.TimeZone.«America/Mexico_City»` (the system's zone stands until one is set). Each type is signal-energy-nexus's Library type (now at `8c861ec`), and `Target.SpendBy` carries an instant and a percent. Every `Set` archive grows to the size of `Span`, so every line holding a `Set` or a `Target` in `tests/fixtures/` is 0.6.0's; `tests/hand_and_generated.rs` proves only the types 0.6.0 leaves unchanged.
+
 ## 0.5.0 — signal 11.0.0, signal-energy-nexus 0.5.0 on signal-flow 61.0.0
 
 Branch-only preparation for the Flow 0.54.7 rollout; deployed with it, in the same Home generation, with signal-energy-nexus 0.5.0 and energy-nexus 0.3.2.

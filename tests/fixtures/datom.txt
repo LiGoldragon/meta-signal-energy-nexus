@@ -7,11 +7,11 @@ Name.Week Week
 Name.FableWeek FableWeek
 ResetId reset-a1
 Target.Even Even
-Target.SpendBy SpendBy.1789200000
+Target.SpendBy SpendBy.{ 1789200000 80 }
 Threshold { Fair 40 }
 Reminder { Codex Low { Mind energyNexus Sol } }
 Caller { 4242 1001 }
-ProviderTarget { Claude SpendBy.1789200000 }
+ProviderTarget { Claude SpendBy.{ 1789200000 80 } }
 WindowTarget { Codex Week Even }
 Program.Codex Codex
 Program.Flow Flow
@@ -41,10 +41,10 @@ Set.Target Target.{ Claude Even }
 Query.Configure.Target Configure.Target.{ Claude Even }
 Call.Target { { 4242 1001 } Configure.Target.{ Claude Even } }
 Response.Configured.Target Configured.Target.{ Claude Even }
-Set.WindowTarget WindowTarget.{ Codex FableWeek SpendBy.1789200000 }
-Query.Configure.WindowTarget Configure.WindowTarget.{ Codex FableWeek SpendBy.1789200000 }
-Call.WindowTarget { { 4242 1001 } Configure.WindowTarget.{ Codex FableWeek SpendBy.1789200000 } }
-Response.Configured.WindowTarget Configured.WindowTarget.{ Codex FableWeek SpendBy.1789200000 }
+Set.WindowTarget WindowTarget.{ Codex FableWeek SpendBy.{ 1789200000 80 } }
+Query.Configure.WindowTarget Configure.WindowTarget.{ Codex FableWeek SpendBy.{ 1789200000 80 } }
+Call.WindowTarget { { 4242 1001 } Configure.WindowTarget.{ Codex FableWeek SpendBy.{ 1789200000 80 } } }
+Response.Configured.WindowTarget Configured.WindowTarget.{ Codex FableWeek SpendBy.{ 1789200000 80 } }
 Set.Program Program.{ Flow /home/li/.codex/auth.json }
 Query.Configure.Program Configure.Program.{ Flow /home/li/.codex/auth.json }
 Call.Program { { 4242 1001 } Configure.Program.{ Flow /home/li/.codex/auth.json } }
@@ -53,4 +53,28 @@ Set.Credentials Credentials./home/li/.codex/auth.json
 Query.Configure.Credentials Configure.Credentials./home/li/.codex/auth.json
 Call.Credentials { { 4242 1001 } Configure.Credentials./home/li/.codex/auth.json }
 Response.Configured.Credentials Configured.Credentials./home/li/.codex/auth.json
+Set.Span Span.{ [ Saturday Sunday ] 9 13 50 }
+Query.Configure.Span Configure.Span.{ [ Saturday Sunday ] 9 13 50 }
+Call.Span { { 4242 1001 } Configure.Span.{ [ Saturday Sunday ] 9 13 50 } }
+Response.Configured.Span Configured.Span.{ [ Saturday Sunday ] 9 13 50 }
+Set.RemoveSpan RemoveSpan.{ [ Saturday Sunday ] 9 13 50 }
+Query.Configure.RemoveSpan Configure.RemoveSpan.{ [ Saturday Sunday ] 9 13 50 }
+Call.RemoveSpan { { 4242 1001 } Configure.RemoveSpan.{ [ Saturday Sunday ] 9 13 50 } }
+Response.Configured.RemoveSpan Configured.RemoveSpan.{ [ Saturday Sunday ] 9 13 50 }
+Set.Override Override.{ 1794859200 1794866400 0 }
+Query.Configure.Override Configure.Override.{ 1794859200 1794866400 0 }
+Call.Override { { 4242 1001 } Configure.Override.{ 1794859200 1794866400 0 } }
+Response.Configured.Override Configured.Override.{ 1794859200 1794866400 0 }
+Set.RemoveOverride RemoveOverride.{ 1794859200 1794866400 0 }
+Query.Configure.RemoveOverride Configure.RemoveOverride.{ 1794859200 1794866400 0 }
+Call.RemoveOverride { { 4242 1001 } Configure.RemoveOverride.{ 1794859200 1794866400 0 } }
+Response.Configured.RemoveOverride Configured.RemoveOverride.{ 1794859200 1794866400 0 }
+Set.Baseline Baseline.20
+Query.Configure.Baseline Configure.Baseline.20
+Call.Baseline { { 4242 1001 } Configure.Baseline.20 }
+Response.Configured.Baseline Configured.Baseline.20
+Set.TimeZone TimeZone.America/Mexico_City
+Query.Configure.TimeZone Configure.TimeZone.America/Mexico_City
+Call.TimeZone { { 4242 1001 } Configure.TimeZone.America/Mexico_City }
+Response.Configured.TimeZone Configured.TimeZone.America/Mexico_City
 Response.ConfigureRefused ConfigureRefused.«the program is not installed»
