@@ -1,14 +1,14 @@
 # Upgrades
 
-## 0.7.0 — signal-energy-nexus 0.7.0: a target is the Week window alone; ConfigureRefused is typed
+## 0.7.0 — signal-energy-nexus 0.7.0: a target governs the Week and FableWeek windows; ConfigureRefused is typed
 
-Pins signal-energy-nexus 0.7.0 (`16c7ad9`): `Target.SpendBy` is `{ Hours Percent }` in place of `{ Instant Percent }`, the hours before the window resets that the target falls, recurring with every reset (datom text `SpendBy.{ 48 80 }`).
+Pins signal-energy-nexus 0.7.0 (`869c8d7`): `Target.SpendBy` is `{ Hours Percent }` in place of `{ Instant Percent }`, the hours before the window resets that the target falls, recurring with every reset (datom text `SpendBy.{ 48 80 }`).
 
-A target is the Week window alone. `Set.WindowTarget` is removed, and the signal's `WindowTarget` type with it: `Set.Target.ProviderTarget` sets one provider's target, applied to its Week window, the Session window takes none (the session is a ceiling on the rate of work), and every other window is paced evenly. Every `Set` variant after `Target` moves down one tag, so every line holding a `Set` in `tests/fixtures/` is 0.7.0's.
+A target governs both week windows, Week and FableWeek (Fable's ruling oxgm); the Session takes none. `Set.WindowTarget` is removed, and the signal's `WindowTarget` type with it: `Set.Target.ProviderTarget` sets one provider's target, applied to its Week and FableWeek windows, the Session window takes none (the session is a ceiling on the rate of work) and is paced evenly; the bound of its hours stays the Week window. Every `Set` variant after `Target` moves down one tag, so every line holding a `Set` in `tests/fixtures/` is 0.7.0's.
 
 `ConfigureRefused` is an enum in place of a string: `ConfigureRefused.TargetExceedsWeek.ProviderTarget` refuses a target whose hours exceed the Week window's duration (as the daemon's held reading says; with no reading held it is accepted), carrying the target as sent, and `ConfigureRefused.RuleRefused.String` is the refusal in words, as the string was. Datom text `ConfigureRefused.RuleRefused.«the program is not installed»`; Rust `ConfigureRefused::RuleRefused(String)`.
 
-The digest is the authored `signal.ethos`'s, and it moves with the text: `192963525083358617` at 0.6.0, `5914257489826601562` now (the comment edit that first moved it for the hours, `-6093066433882140382`, is subsumed), so a 0.6.0 peer is refused at its greeting. `tests/fixtures/` holds the lines that carry a `Set`, a refusal and the contract identity as 0.7.0 writes them.
+The digest is the authored `signal.ethos`'s, and it moves with the text: `192963525083358617` at 0.6.0, `2349818453809797521` now (the comment edits that moved it before, `-6093066433882140382` and `5914257489826601562`, are subsumed), so a 0.6.0 peer is refused at its greeting. `tests/fixtures/` holds the lines that carry a `Set`, a refusal and the contract identity as 0.7.0 writes them.
 
 ## 0.6.0 — generated from Ethos by ethos-zero 28.0.0; signal-energy-nexus 0.6.0
 

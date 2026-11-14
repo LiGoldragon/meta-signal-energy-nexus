@@ -30,10 +30,10 @@
 //! `SpendBy` hold 48 hours, and `contract.txt` holds the identity the changed
 //! comment on the `Target` setting gives.
 //!
-//! The 0.7.0 target is the Week window alone: `Set.WindowTarget` is gone (every
-//! `Set` variant after it moves down one tag), and `ConfigureRefused` is an
-//! enum, `TargetExceedsWeek` and `RuleRefused`, so the lines that hold a `Set`
-//! or a refusal are 0.7.0's.
+//! The 0.7.0 target governs the Week and FableWeek windows: `Set.WindowTarget`
+//! is gone (every `Set` variant after it moves down one tag), and
+//! `ConfigureRefused` is an enum, `TargetExceedsWeek` and `RuleRefused`, so the
+//! lines that hold a `Set` or a refusal are 0.7.0's.
 //!
 //! The values are built from the types ethos-zero generates. The fixture
 //! lines keep the 0.4.0 names: `Query`, `Response` and `ProgramPath` are the

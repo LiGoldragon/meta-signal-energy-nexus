@@ -11,7 +11,7 @@ Signal
         RemoveReminder.Reminder
         RedeemExpiring.Minutes
         RedeemUsedAtLeast.Percent
-        Target.ProviderTarget                               ; one provider target, a SpendBy counted in hours before the window resets, for its Week window alone
+        Target.ProviderTarget                               ; one provider target, a SpendBy counted in hours before the window resets, for its Week and FableWeek windows
         Program.{ Program.[ Codex Flow ] Path.String }      ; one configured external program
         Credentials.Path
         Span                                                ; one span of the schedule, added
