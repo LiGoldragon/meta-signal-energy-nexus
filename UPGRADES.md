@@ -1,5 +1,9 @@
 # Upgrades
 
+## 0.7.1 — signal-energy-nexus 0.8.0
+
+Pins signal-energy-nexus 0.8.0 (`87f3c38`), whose `Read` carries `TurnEndSubscription`. No type this contract names changes, so its own wire and digest are unchanged; the pin moves so one package links one signal-energy-nexus.
+
 ## 0.7.0 — signal-energy-nexus 0.7.0: a target governs the Week and FableWeek windows; ConfigureRefused is typed
 
 Pins signal-energy-nexus 0.7.0 (`869c8d7`): `Target.SpendBy` is `{ Hours Percent }` in place of `{ Instant Percent }`, the hours before the window resets that the target falls, recurring with every reset (datom text `SpendBy.{ 48 80 }`).
