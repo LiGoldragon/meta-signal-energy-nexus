@@ -7,8 +7,9 @@ pub mod generated;
 pub use generated::signal::*;
 
 pub use signal_energy_nexus::{
-    Baseline, Caller, Minutes, Name, Override, Percent, Provider, ProviderTarget, Reminder,
+    Baseline, Caller, Credit, Minutes, Name, Override, Percent, Provider, ProviderTarget, Reminder,
     ResetId, Span, Target, Threshold, TimeZone,
+    Spent,
 };
 
 /// The authored meta Signal; its text is the contract's identity on the wire.
@@ -37,6 +38,48 @@ mod tests {
             .restore()
             .unwrap();
         assert_eq!(restored, value);
+    }
+
+    #[test]
+    fn configured_credit_and_spend_round_trip_as_meta_settings() {
+        let values = [
+            Call {
+                caller: Caller {
+                    process_id: ProcessId(1),
+                    user_id: UserId(2),
+                },
+                input: Input::Configure(Set::Credit(Credit {
+                    provider: Provider::ClaudeApi,
+                    granted: signal_energy_nexus::Cents(20_000),
+                    starts: signal_energy_nexus::Starts(signal_energy_nexus::Instant(
+                        1_795_046_400,
+                    )),
+                    expires: signal_energy_nexus::Expires(signal_energy_nexus::Instant(
+                        1_797_638_400,
+                    )),
+                    renewal: signal_energy_nexus::Renewal::Monthly,
+                    lead_time_option: Some(Minutes(10_080)),
+                })),
+            },
+            Call {
+                caller: Caller {
+                    process_id: ProcessId(1),
+                    user_id: UserId(2),
+                },
+                input: Input::Configure(Set::Spent(Spent {
+                    provider: Provider::ClaudeApi,
+                    cents: signal_energy_nexus::Cents(13),
+                    at: signal_energy_nexus::At(signal_energy_nexus::Instant(1_795_047_000)),
+                })),
+            },
+        ];
+        for value in values {
+            let bytes = value.signalize().unwrap();
+            let restored = Signal::<Call>::from(bytes.bytes().to_vec())
+                .restore()
+                .unwrap();
+            assert_eq!(restored, value);
+        }
     }
 
     /// The provider polling interval is gone: Energy reads on events, so no

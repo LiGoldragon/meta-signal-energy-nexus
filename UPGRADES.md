@@ -1,5 +1,9 @@
 # Upgrades
 
+## 0.8.0 — Configure.Credit and Configure.Spent
+
+The meta `Set` appends `Credit` and `Spent`. `Credit` carries an API provider, grant in whole cents, start, expiry, `Once` or `Monthly` renewal, and an optional lead time in minutes for that individual grant. Energy normalizes an omitted lead to the documented seven-day default. `Spent` carries the provider's known cents amount and the instant it was observed for the configured period. Energy validates provider, period order, amount, and spend coverage before persistence. These variants grow `Set`, `Input`, `Call` and `Output`; the matching Energy build must be installed as one contract set.
+
 ## 0.7.1 — signal-energy-nexus 0.8.0
 
 Pins signal-energy-nexus 0.8.0 (`87f3c38`), whose `Read` carries `TurnEndSubscription`. No type this contract names changes, so its own wire and digest are unchanged; the pin moves so one package links one signal-energy-nexus.

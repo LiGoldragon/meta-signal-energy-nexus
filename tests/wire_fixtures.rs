@@ -219,17 +219,40 @@ fn sets() -> Vec<(&'static str, Set)> {
         ("RemoveOverride", Set::RemoveOverride(stretch())),
         ("Baseline", Set::Baseline(Baseline(Percent(20)))),
         ("TimeZone", Set::TimeZone(TimeZone("America/Mexico_City".to_string()))),
+        (
+            "Credit",
+            Set::Credit(Credit {
+                provider: Provider::ClaudeApi,
+                granted: signal_energy_nexus::Cents(20_000),
+                starts: signal_energy_nexus::Starts(signal_energy_nexus::Instant(
+                    1_795_046_400,
+                )),
+                expires: signal_energy_nexus::Expires(signal_energy_nexus::Instant(
+                    1_797_638_400,
+                )),
+                renewal: signal_energy_nexus::Renewal::Monthly,
+                lead_time_option: Some(Minutes(10_080)),
+            }),
+        ),
+        (
+            "Spent",
+            Set::Spent(Spent {
+                provider: Provider::ClaudeApi,
+                cents: signal_energy_nexus::Cents(13),
+                at: signal_energy_nexus::At(signal_energy_nexus::Instant(1_795_047_000)),
+            }),
+        ),
     ]
 }
 
 fn produce(wire: &mut Wire) {
     use signal_energy_nexus::Level;
-    for provider in [Provider::Claude, Provider::Codex] {
+    for provider in [Provider::Claude, Provider::Codex, Provider::ClaudeApi, Provider::OpenAiApi] {
         case!(wire, format!("Provider.{provider:?}"), Provider, provider);
     }
     case!(wire, "Percent", Percent, Percent(63));
     case!(wire, "Minutes", Minutes, Minutes(720));
-    for name in [Name::Session, Name::Week, Name::FableWeek] {
+    for name in [Name::Session, Name::Week, Name::FableWeek, Name::Credit] {
         case!(wire, format!("Name.{name:?}"), Name, name);
     }
     case!(wire, "ResetId", ResetId, ResetId("reset-a1".to_string()));

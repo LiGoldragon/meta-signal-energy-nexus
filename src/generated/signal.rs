@@ -54,6 +54,8 @@ pub enum Set {
     RemoveOverride(signal_energy_nexus::Override),
     Baseline(signal_energy_nexus::Baseline),
     TimeZone(signal_energy_nexus::TimeZone),
+    Credit(signal_energy_nexus::Credit),
+    Spent(signal_energy_nexus::Spent),
 }
 #[rustfmt::skip]
 #[derive(rkyv::Archive, rkyv::Serialize, rkyv::Deserialize, Clone, Debug, PartialEq, Eq, Hash)]

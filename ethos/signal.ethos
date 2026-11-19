@@ -1,5 +1,5 @@
 Signal
-[ signal_energy_nexus:[ Caller Threshold Reminder Minutes Percent ProviderTarget Span Override Baseline TimeZone ] ] ; imports the Energy vocabulary and the ordinary envelope
+[ signal_energy_nexus:[ Caller Threshold Reminder Minutes Percent ProviderTarget Span Override Baseline TimeZone Credit Spent ] ] ; imports the Energy vocabulary and the ordinary envelope
 [ Configure.Set ]                                           ; the meta input
 [ Configured.Set                                            ; meta outputs
   ConfigureRefused ]                                        ; any setting's refusal
@@ -19,4 +19,6 @@ Signal
         Override                                            ; one stretch of time, set over the schedule
         RemoveOverride.Override
         Baseline                                            ; the usefulness of every hour no span names
-        TimeZone ] ]                                        ; the owner's time zone; the system's until one is set
+        TimeZone
+        Credit                                                ; one configured grant and its expiry lead time
+        Spent ] ]                                             ; one observed amount spent during the configured period
