@@ -35,6 +35,9 @@
 //! `ConfigureRefused` is an enum, `TargetExceedsWeek` and `RuleRefused`, so the
 //! lines that hold a `Set` or a refusal are 0.7.0's.
 //!
+//! 0.8.0 appends `Set.Credit` and `Set.Spent`; earlier variants keep their
+//! tags and the current meta contract identity is added to the fixtures.
+//!
 //! The values are built from the types ethos-zero generates. The fixture
 //! lines keep the 0.4.0 names: `Query`, `Response` and `ProgramPath` are the
 //! generated `Input`, `Output` and `Program_Data`; the caller's two integers
@@ -390,7 +393,7 @@ fn differences(name: &str, produced: &[(String, String)]) -> Vec<String> {
 }
 
 #[test]
-fn the_wire_is_the_0_4_0_wire() {
+fn wire_matches_the_versioned_fixtures() {
     let writing = std::env::var("WIRE_FIXTURES_WRITE").ok();
     let mut wire = Wire {
         held_binary: BTreeMap::new(),

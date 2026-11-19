@@ -2,7 +2,7 @@
 
 ## 0.8.0 — Configure.Credit and Configure.Spent
 
-The meta `Set` appends `Credit` and `Spent`. `Credit` carries an API provider, grant in whole cents, start, expiry, `Once` or `Monthly` renewal, and an optional lead time in minutes for that individual grant. Energy normalizes an omitted lead to the documented seven-day default. `Spent` carries the provider's known cents amount and the instant it was observed for the configured period. Energy validates provider, period order, amount, and spend coverage before persistence. These variants grow `Set`, `Input`, `Call` and `Output`; the matching Energy build must be installed as one contract set.
+The meta `Set` appends `Credit` and `Spent`. `Credit` carries an API provider, grant in whole cents, start, expiry, `Once` or `Monthly` renewal, and an optional lead time in minutes for that individual grant. Energy normalizes an omitted lead to the documented seven-day default. `Spent` carries the provider's known cents amount and the instant it was observed for the configured period. Energy validates provider, period order, amount, and spend coverage before persistence. The configured provider target paces its Credit period as well as its Week and FableWeek windows. These variants grow `Set`, `Input`, `Call` and `Output`; the matching Energy build must be installed as one contract set.
 
 ## 0.7.1 — signal-energy-nexus 0.8.0
 
